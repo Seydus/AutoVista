@@ -14,5 +14,7 @@ public class RequestAPIManager {
         this.context = context;
     }
 
+    public void getWeatherIdentity(OnFetchDataListener<CarAPIResponse> listener) {
 
+    }
 }
