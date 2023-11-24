@@ -1,44 +1,40 @@
 package com.example.autovista;
 
 import android.os.Bundle;
-import android.widget.Button;
 
+import com.example.autovista.authentication.AuthenticationHandler;
 import com.example.autovista.authentication.FirebaseAuthentication;
-import com.example.autovista.ui.UIManager;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.example.autovista.models.User;
+import com.example.autovista.ui.UIAuthentication;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAuthentication authentication;
+    private AuthenticationHandler authenticationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         GlobalManager globalManager = GlobalManager.getInstance();
 
         InitializeFirebaseAuthentication();
         InitializeUIAdapter();
-//
-        FirebaseAuthentication testAuth = GlobalManager.Instance.getFirebaseAuthentication();
-        testAuth.signIn();
     }
 
     private void InitializeFirebaseAuthentication()
     {
-        String clientId = getString(R.string.default_web_client_id);
-        GoogleSignInOptions gso = getSignInOptions(getString(R.string.default_web_client_id));
-        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        FirebaseAuthentication authentication = new FirebaseAuthentication(mGoogleSignInClient, clientId);
+        authentication = new FirebaseAuthentication(this);
+        authenticationHandler = new AuthenticationHandler();
     }
 
     private void InitializeUIAdapter()
     {
-        UIManager adapter = new UIManager(this);
+        UIAuthentication adapter = new UIAuthentication(this, new User());
+        adapter.InitializeViews();
         adapter.InvokeUIAdapter();
     }
 
