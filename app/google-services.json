@@ -12,7 +12,20 @@
           "package_name": "com.example.autovista"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "295771947509-9b7f8rot65kkr6p7ccv1m8qeat62kgk4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.autovista",
+            "certificate_hash": "c5ba076e6663b0864fa19914fb80641782051d76"
+          }
+        },
+        {
+          "client_id": "295771947509-c5a8qtfr7kb0vrevjaklbhs5b40hc9g1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBXB7ZNJCTEIg9C1Hz15JIEOp_eRow8VX4"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "295771947509-c5a8qtfr7kb0vrevjaklbhs5b40hc9g1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
