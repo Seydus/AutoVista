@@ -12,4 +12,5 @@
     <string name="last_name">Last name</string>
     <string name="already_have_an_account_log_in">Already have an account? Log in</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign up</string>
+    <string name="default_web_client_id">295771947509-c5a8qtfr7kb0vrevjaklbhs5b40hc9g1.apps.googleusercontent.com</string>
 </resources>
