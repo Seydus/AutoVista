@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" package="com.example.autovista">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.autovista">
 
     <application
         android:allowBackup="true"
@@ -13,14 +14,29 @@
         android:theme="@style/Theme.AutoVista"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
             android:exported="true"
-            android:label="@string/app_name">
+            android:theme="@style/Theme.Material3.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="AutoVista">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
     </application>
 
