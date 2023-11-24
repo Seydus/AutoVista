@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseFirestore firestore;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
