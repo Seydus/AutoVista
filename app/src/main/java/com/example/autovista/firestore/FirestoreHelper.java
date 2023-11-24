@@ -26,12 +26,13 @@ public class FirestoreHelper {
         db = FirebaseFirestore.getInstance();
     }
 
-    public void OnCreateFirestore(FirestoreDataHandler dataHandler)
-    {
-        db.collection(dataHandler.collectionName).add(dataHandler.documentData)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+    public void OnCreateFirestore(FirestoreDataHandler dataHandler) {
+        db.collection(dataHandler.collectionName)
+                .document(dataHandler.documentId)
+                .set(dataHandler.documentData)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void aVoid) {
                         Toast.makeText(dataHandler.appContext, "Success", Toast.LENGTH_LONG).show();
                     }
                 })
