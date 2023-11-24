@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.autovista.GlobalManager;
 import com.example.autovista.R;
 import com.google.android.gms.auth.api.identity.BeginSignInRequest;
 import com.google.android.gms.auth.api.identity.SignInCredential;
@@ -16,10 +19,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,22 +37,28 @@ import javax.annotation.Nullable;
 public class FirebaseAuthentication extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
+    private static final int RC_PLAY_SERVICES_RESOLUTION = 9002;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
+    public String clientId;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        
+    public FirebaseAuthentication(GoogleSignInClient mGoogleSignInClient, String clientId)
+    {
+        this.mGoogleSignInClient = mGoogleSignInClient;
+        this.clientId = clientId;
         mAuth = FirebaseAuth.getInstance();
+
+        GlobalManager.Instance.setFirebaseAuthentication(this);
     }
+
+    private ActivityResultLauncher<Intent> signInLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK) {
+                            // The activity result is OK
+                            handleSignInResult(result.getData());
+                        }
+                    });
 
     @Override
     public void onStart() {
@@ -98,7 +110,18 @@ public class FirebaseAuthentication extends AppCompatActivity {
 
     public void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        signInLauncher.launch(signInIntent);
+    }
+
+    private void handleSignInResult(Intent data) {
+        Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+            firebaseAuthWithGoogle(account.getIdToken());
+        } catch (ApiException e) {
+            Log.w(TAG, "Google sign in failed", e);
+        }
     }
 
     public void signOut() {

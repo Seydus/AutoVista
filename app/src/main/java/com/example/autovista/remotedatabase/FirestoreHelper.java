@@ -1,13 +1,13 @@
-package com.example.autovista.firestore;
+package com.example.autovista.remotedatabase;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.autovista.GlobalManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -17,13 +17,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Map;
-
 public class FirestoreHelper {
     private FirebaseFirestore db;
 
-    public FirestoreHelper() {
+    public FirestoreHelper()
+    {
         db = FirebaseFirestore.getInstance();
+
+        GlobalManager.Instance.setFirestoreHelper(this);
     }
 
     public void OnCreateFirestore(FirestoreDataHandler dataHandler) {
