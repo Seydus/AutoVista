@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "485415199459",
+    "project_id": "autovista-142e2",
+    "storage_bucket": "autovista-142e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485415199459:android:4f212e7f7890ba10fd1bd6",
+        "android_client_info": {
+          "package_name": "com.company.autovista"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCw2FhnCMBVQNNfoNuKdzg_xQmx52VvIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
