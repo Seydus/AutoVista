@@ -3,6 +3,8 @@ package com.example.autovista;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.autovista.firestore.FirestoreDataHandler;
+import com.example.autovista.firestore.FirestoreHelper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,5 +29,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("CarName", "Nissan");
+        userData.put("VehicleName", "Musta");
+
+        FirestoreHelper helper = new FirestoreHelper();
+        FirestoreDataHandler data = new FirestoreDataHandler("users", "micheal", userData, getApplicationContext());
+
+        helper.OnCreateFirestore(data);
     }
 }
