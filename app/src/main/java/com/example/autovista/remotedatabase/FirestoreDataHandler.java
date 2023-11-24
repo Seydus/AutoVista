@@ -1,4 +1,4 @@
-package com.example.autovista.firestore;
+package com.example.autovista.remotedatabase;
 
 import android.content.Context;
 
@@ -10,7 +10,7 @@ public class FirestoreDataHandler {
     public Map<String, Object> documentData;
     public Context appContext;
 
-    public FirestoreDataHandler (String collectionName, String documentId, Map<String, Object> documentData, Context appContext) {
+    public FirestoreDataHandler(String collectionName, String documentId, Map<String, Object> documentData, Context appContext) {
         this.collectionName = collectionName;
         this.documentId = documentId;
         this.documentData = documentData;

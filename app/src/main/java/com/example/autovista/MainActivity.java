@@ -1,42 +1,51 @@
 package com.example.autovista;
 
 import android.os.Bundle;
-import android.widget.Toast;
+import android.widget.Button;
 
-import com.example.autovista.firestore.FirestoreDataHandler;
-import com.example.autovista.firestore.FirestoreHelper;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.autovista.authentication.FirebaseAuthentication;
+import com.example.autovista.ui.UIManager;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.autovista.databinding.ActivityMainBinding;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("CarName", "Nissan");
-        userData.put("VehicleName", "Musta");
+        GlobalManager globalManager = GlobalManager.getInstance();
 
-        FirestoreHelper helper = new FirestoreHelper();
-        FirestoreDataHandler data = new FirestoreDataHandler("users", "micheal", userData, getApplicationContext());
+        InitializeFirebaseAuthentication();
+        InitializeUIAdapter();
+//
+        FirebaseAuthentication testAuth = GlobalManager.Instance.getFirebaseAuthentication();
+        testAuth.signIn();
+    }
 
-        helper.OnCreateFirestore(data);
+    private void InitializeFirebaseAuthentication()
+    {
+        String clientId = getString(R.string.default_web_client_id);
+        GoogleSignInOptions gso = getSignInOptions(getString(R.string.default_web_client_id));
+        GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        FirebaseAuthentication authentication = new FirebaseAuthentication(mGoogleSignInClient, clientId);
+    }
+
+    private void InitializeUIAdapter()
+    {
+        UIManager adapter = new UIManager(this);
+        adapter.InvokeUIAdapter();
+    }
+
+    public GoogleSignInOptions getSignInOptions(String clientId) {
+        return new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(clientId)
+                .requestEmail()
+                .build();
     }
 }
