@@ -1,42 +1,47 @@
 package com.example.autovista;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.example.autovista.firestore.FirestoreDataHandler;
-import com.example.autovista.firestore.FirestoreHelper;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.autovista.authentication.AuthenticationHandler;
+import com.example.autovista.authentication.FirebaseAuthentication;
+import com.example.autovista.models.User;
+import com.example.autovista.ui.UIAuthentication;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.autovista.databinding.ActivityMainBinding;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    
+    private FirebaseAuthentication authentication;
+    private AuthenticationHandler authenticationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("CarName", "Nissan");
-        userData.put("VehicleName", "Musta");
+        GlobalManager globalManager = GlobalManager.getInstance();
 
-        FirestoreHelper helper = new FirestoreHelper();
-        FirestoreDataHandler data = new FirestoreDataHandler("users", "micheal", userData, getApplicationContext());
+        InitializeFirebaseAuthentication();
+        InitializeUIAdapter();
+    }
 
-        helper.OnCreateFirestore(data);
+    private void InitializeFirebaseAuthentication()
+    {
+        authentication = new FirebaseAuthentication(this);
+        authenticationHandler = new AuthenticationHandler();
+    }
+
+    private void InitializeUIAdapter()
+    {
+        UIAuthentication adapter = new UIAuthentication(this, new User());
+        adapter.InitializeViews();
+        adapter.InvokeUIAdapter();
+    }
+
+    public GoogleSignInOptions getSignInOptions(String clientId) {
+        return new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(clientId)
+                .requestEmail()
+                .build();
     }
 }
