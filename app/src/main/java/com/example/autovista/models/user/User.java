@@ -1,8 +1,8 @@
 package com.example.autovista.models.user;
 
-import Entity.Entity;
+import com.example.autovista.models.Entity;
 
-public class User implements Entity{
+public class User implements Entity {
     //attributes
     public enum USERTYPE {
         userRegular, userAdmin

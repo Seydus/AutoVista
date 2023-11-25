@@ -1,6 +1,7 @@
 package com.example.autovista.models.car;
 
-import Entity.Entity;
+
+import com.example.autovista.models.Entity;
 
 public abstract class Car implements Entity {
     CarInfo info;
