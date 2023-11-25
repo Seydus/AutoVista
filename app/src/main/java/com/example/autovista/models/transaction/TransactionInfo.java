@@ -1,8 +1,8 @@
-package com.example.autovista.models.Transactions;
+package com.example.autovista.models.transaction;
 
 import Entity.Entity;
 
-public class TransactionsInfo implements Entity {
+public class TransactionInfo implements Entity {
     //attributes
     public int transactionId;
     public int buyerId; //who bought

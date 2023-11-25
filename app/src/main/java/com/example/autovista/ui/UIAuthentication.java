@@ -1,16 +1,13 @@
 package com.example.autovista.ui;
 
 import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.autovista.GlobalManager;
 import com.example.autovista.R;
-import com.example.autovista.models.User;
+import com.example.autovista.models.user.User;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class UIAuthentication {

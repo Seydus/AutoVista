@@ -1,20 +1,20 @@
-package com.example.autovista.models.Transactions;
+package com.example.autovista.models.transaction;
 
 import Entity.Entity;
 
-public abstract class Transactions implements Entity {
-    TransactionsInfo info;
+public abstract class Transaction implements Entity {
+    TransactionInfo info;
 
     //constructor
-    public Transactions(TransactionsInfo info) {
+    public Transaction(TransactionInfo info) {
         this.info = info;
     }
 
-    public TransactionsInfo getInfo() {
+    public TransactionInfo getInfo() {
         return info;
     }
 
-    public void setInfo(TransactionsInfo info) {
+    public void setInfo(TransactionInfo info) {
         this.info = info;
     }
 

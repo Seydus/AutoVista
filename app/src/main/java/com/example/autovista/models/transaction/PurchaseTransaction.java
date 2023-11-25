@@ -1,12 +1,12 @@
-package com.example.autovista.models.Transactions;
+package com.example.autovista.models.transaction;
 
-public class purchaseTransaction extends Transactions {
+public class PurchaseTransaction extends Transaction {
     //Specific Attributes
     public int itemPurchased; //id of items to be bought
     public String vehiclePurchased; //Name of Vehicle
     public float totalCost;
 
-    public purchaseTransaction(TransactionsInfo info, int itemPurchased, String vehiclePurchased, float totalCost) {
+    public PurchaseTransaction(TransactionInfo info, int itemPurchased, String vehiclePurchased, float totalCost) {
         super(info);
         this.itemPurchased = itemPurchased;
         this.vehiclePurchased = vehiclePurchased;

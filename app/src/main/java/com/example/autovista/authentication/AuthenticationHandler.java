@@ -1,7 +1,7 @@
 package com.example.autovista.authentication;
 
 import com.example.autovista.GlobalManager;
-import com.example.autovista.models.User;
+import com.example.autovista.models.user.User;
 
 public class AuthenticationHandler {
     public AuthenticationHandler()

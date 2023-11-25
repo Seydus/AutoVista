@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class FirestoreHelper {
@@ -45,18 +45,13 @@ public class FirestoreHelper {
                 });
     }
 
-    public void OnReadFirestore(FirestoreDataHandler dataHandler)
-    {
-        db = FirebaseFirestore.getInstance();
-
-        db.collection(dataHandler.collectionName).get()
+    public void OnReadFirestore(String collectionName, FirestoreDataCallback firestoreDataCallback) {
+        db.collection(collectionName).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
+                            // Populate dataHandler with document.getData()
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
@@ -102,4 +97,10 @@ public class FirestoreHelper {
                 });
     }
 
+    public void OnReadAllFirestore(String collectionName, FirestoreDataCallback callback)
+    {
+        Query query = db.collection(collectionName).orderBy("someField", Query.Direction.ASCENDING);
+        QuerySnapshot querySnapshot = query.get().getResult();
+        callback.onCallback(querySnapshot);
+    }
 }

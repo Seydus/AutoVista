@@ -1,20 +1,10 @@
-package com.example.autovista.models.User;
+package com.example.autovista.models.user;
 import java.util.Arrays;
 
-public class userAdmin extends User{ //we are the sellers
+public class UserAdmin extends User{ //we are the sellers
     //specific attributes
     public int[] itemsUpForSale; //an array of item's ID sold by this user
     public int moneyGenerated; //amount of monetary sales in Php
-
-
-    //constructor
-    public userAdmin(int id, String username, String email, String password, USERTYPE userType, int moneyGenerated, int[] itemsUpForSale){
-        super(id, username, email, password, userType);
-        this.itemsUpForSale = itemsUpForSale;
-        this.moneyGenerated = moneyGenerated;
-    }
-    //example initialize: ... = new UserRegular(1, "username", "email", "password", USERTYPE.userRegular, new int[]{1, 2, 3});
-
 
     //Setters and getters
     public int[] getItemsUpForSale() {//gets a COPY of the id list

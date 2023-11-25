@@ -1,4 +1,4 @@
-package com.example.autovista.models.Car;
+package com.example.autovista.models.car;
 
 public class GasCar extends Car{
     //specific attributes

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.example.autovista.authentication.AuthenticationHandler;
 import com.example.autovista.authentication.FirebaseAuthentication;
-import com.example.autovista.models.User;
+import com.example.autovista.models.user.User;
 import com.example.autovista.ui.UIAuthentication;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 
