@@ -1,6 +1,5 @@
 package com.example.autovista.ui.adapter;
 
-import android.content.ClipData;
 import android.view.View;
 import android.widget.TextView;
 

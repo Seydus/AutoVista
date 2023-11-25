@@ -1,4 +1,4 @@
-package com.example.ventus;
+package com.example.autovista.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -37,6 +37,6 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CarViewHolder holder, int position) {
-        //holder.text_CarItem.setText(carList.get(position).getId().get(0).getMain());
+        // holder.text_CarItem.setText(carList.get(position).getId().get(0).getMain());
     }
 }
