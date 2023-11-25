@@ -1,6 +1,6 @@
 package com.example.autovista.models.transaction;
 
-import Entity.Entity;
+import com.example.autovista.models.Entity;
 
 public abstract class Transaction implements Entity {
     TransactionInfo info;
