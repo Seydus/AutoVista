@@ -8,8 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.example.autovista.GlobalManager;
-import com.example.autovista.models.User;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.example.autovista.models.user.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
