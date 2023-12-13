@@ -10,4 +10,5 @@
     <color name="colorAccent">#6750A4</color>
     <color name="gray">#EFEFEF</color>
     <color name="lightgray">#FBFBFB</color>
+    <color name="linkColor">#0077cc</color>
 </resources>

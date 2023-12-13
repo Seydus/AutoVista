@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.FragmentCarInformation">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_above="@id/containerhome"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Find a Great Deal"
+                android:gravity="center"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containerhome"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:elevation="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shop By"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <Button
+                android:id="@+id/btn_make_model"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="Make &amp; Model"/>
+
+            <Button
+                android:id="@+id/btn_vehicle_category"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="Vehicle Category"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>
