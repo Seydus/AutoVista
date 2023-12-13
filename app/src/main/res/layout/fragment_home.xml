@@ -44,32 +44,31 @@
             android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:background="@color/white"
-            android:padding="16dp"
-            android:orientation="vertical"
+            android:elevation="8dp"
             android:gravity="center"
-            android:elevation="8dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="Shop By"
-                android:textStyle="bold"
                 android:textColor="#000000"
                 android:textSize="18sp"
-                android:layout_marginBottom="10dp"
-                />
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_make_model"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
-                android:text="Make &amp; Model"/>
+                android:text="Make &amp; Model" />
 
             <Button
                 android:id="@+id/btn_vehicle_category"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
-                android:text="Vehicle Category"/>
+                android:text="Vehicle Category" />
 
         </LinearLayout>
     </RelativeLayout>

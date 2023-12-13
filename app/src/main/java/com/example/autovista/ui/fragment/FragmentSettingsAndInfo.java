@@ -9,12 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autovista.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class FragmentVehicleCategory extends Fragment {
-
+public class FragmentSettingsAndInfo extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,13 +27,13 @@ public class FragmentVehicleCategory extends Fragment {
         actionBarBackBtn.setVisibility(View.VISIBLE);
 
         TextView titleTxt = requireActivity().findViewById(R.id.titleTxt);
-        titleTxt.setText("Categories");
+        titleTxt.setText("Settings & Info");
 
         actionBarBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayout, new FragmentHome())
+                        .replace(R.id.frameLayout, new FragmentMore())
                         .commit();
 
                 actionBarBackBtn.setVisibility(View.GONE);
@@ -45,8 +44,6 @@ public class FragmentVehicleCategory extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_category_maintainance, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_settings_info, container, false);
     }
 }

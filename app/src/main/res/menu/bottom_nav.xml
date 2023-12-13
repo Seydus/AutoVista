@@ -3,15 +3,15 @@
     <item
         android:id="@+id/bottom_home"
         android:title="Home"
-        android:icon="@drawable/baseline_local_phone_24"/>
+        android:icon="@drawable/baseline_home_24"/>
 
     <item
         android:id="@+id/bottom_profile"
         android:title="Profile"
-        android:icon="@drawable/baseline_local_phone_24"/>
+        android:icon="@drawable/baseline_account_circle_24"/>
 
     <item
         android:id="@+id/bottom_more"
-        android:title="Morews"
-        android:icon="@drawable/baseline_local_phone_24"/>
+        android:title="More"
+        android:icon="@drawable/baseline_category_24"/>
 </menu>

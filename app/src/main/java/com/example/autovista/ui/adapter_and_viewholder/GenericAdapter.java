@@ -12,12 +12,12 @@ import java.util.Map;
 
 public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder<Map<String, Object>>> {
 
-    private List<Map<String, Object>> buttonDataList;
+    private List<Map<String, Object>> dataList;
     private int layoutResourceId;
     private int[] viewIds;
 
-    public GenericAdapter(List<Map<String, Object>> buttonDataList, int layoutResourceId, int... viewIds) {
-        this.buttonDataList = buttonDataList;
+    public GenericAdapter(List<Map<String, Object>> dataList, int layoutResourceId, int... viewIds) {
+        this.dataList = dataList;
         this.layoutResourceId = layoutResourceId;
         this.viewIds = viewIds;
     }
@@ -31,12 +31,12 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder<Map<S
 
     @Override
     public void onBindViewHolder(@NonNull GenericViewHolder<Map<String, Object>> holder, int position) {
-        Map<String, Object> buttonData = buttonDataList.get(position);
+        Map<String, Object> buttonData = dataList.get(position);
         holder.bind(buttonData, viewIds);
     }
 
     @Override
     public int getItemCount() {
-        return buttonDataList.size();
+        return dataList.size();
     }
 }

@@ -4,7 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:id="@+id/drawerLayout">
+    android:id="@+id/drawerLayout"
+    >
+
+    <include layout="@layout/actionbar_top"/>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,7 +19,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_nav"
-        android:id="@+id/bottomNav"/>
+        android:id="@+id/bottomNav"
+        app:itemTextColor="@color/black"
+        android:elevation="80dp"/>
 
 
 </LinearLayout>

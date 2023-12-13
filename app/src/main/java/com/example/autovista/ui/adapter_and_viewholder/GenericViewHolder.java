@@ -33,16 +33,17 @@ public class GenericViewHolder<T> extends RecyclerView.ViewHolder {
             View view = itemView.findViewById(viewId);
 
             if (view instanceof Button) {
-                ((Button) view).setText((String) data.get("text"));
+                ((Button) view).setText((String) data.get(String.valueOf(viewId)));
                 view.setOnClickListener((View.OnClickListener) data.get("clickListener"));
             } else if (view instanceof TextView) {
                 // Handle other view types if needed
-                ((TextView) view).setText((String) data.get("text"));
+                ((TextView) view).setText((String) data.get(String.valueOf(viewId)));
             }
             else if (view instanceof FrameLayout)
             {
                 view.setOnClickListener((View.OnClickListener) data.get("clickListener"));
             }
+
             // Add more cases for different view types as needed
         }
     }

@@ -26,7 +26,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/title_car"
+            android:id="@+id/carNameData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2024 Acura Integra"
@@ -34,6 +34,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/carTypeData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4dr Hatchback (1.5L 4cyl Turbo CVT)" />
@@ -72,9 +73,10 @@
                     <TextView
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
-                        android:text="List Price" />
+                        android:text="Price" />
 
                     <TextView
+                        android:id="@+id/carPriceData"
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
                         android:text="$32,295"
@@ -93,6 +95,7 @@
                         android:text="Exterior Color" />
 
                     <TextView
+                        android:id="@+id/exteriorColorData"
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
                         android:text="Majestic Black Pearl"
@@ -111,6 +114,7 @@
                         android:text="Interior Color" />
 
                     <TextView
+                        android:id="@+id/interiorColorData"
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
                         android:text="Ebony leatheretter"
@@ -129,6 +133,7 @@
                         android:text="Engine" />
 
                     <TextView
+                        android:id="@+id/engineData"
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
                         android:text="Gas"
@@ -147,6 +152,7 @@
                         android:text="Drive Type" />
 
                     <TextView
+                        android:id="@+id/driveTypeData"
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
                         android:text="Front Wheel Drive"
@@ -165,6 +171,7 @@
                         android:text="Transmission" />
 
                     <TextView
+                        android:id="@+id/transmissionData"
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
                         android:text="Automatic"
@@ -183,6 +190,7 @@
                         android:text="VIN" />
 
                     <TextView
+                        android:id="@+id/vinData"
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
                         android:text="19UDE4H2XRA018191"
@@ -201,6 +209,7 @@
                         android:text="Stock #" />
 
                     <TextView
+                        android:id="@+id/stockData"
                         android:layout_width="167dp"
                         android:layout_height="wrap_content"
                         android:text="A4033"
@@ -230,6 +239,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_features_specs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -239,6 +249,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -250,7 +261,8 @@
                     android:onClick="goToMenu"
                     android:text="See All Features and Specs"
                     android:textColor="@color/linkColor"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    />
 
                 <ImageView
                     android:layout_width="wrap_content"

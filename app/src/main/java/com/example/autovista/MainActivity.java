@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,7 @@ import com.example.autovista.models.car.Car;
 import com.example.autovista.models.user.User;
 import com.example.autovista.ui.UIAuthentication;
 import com.example.autovista.ui.fragment.FragmentHome;
+import com.example.autovista.ui.fragment.FragmentMore;
 import com.example.autovista.ui.fragment.FragmentSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -61,36 +63,26 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void InitializeBottomNavigation()
-    {
+    private void InitializeBottomNavigation() {
         bottomNavigationView = findViewById(R.id.bottomNav);
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.bottom_home) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentHome()).commit();
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                    getSupportActionBar().setTitle("Home");
                     return true;
-                }
-                else if (itemId == R.id.bottom_profile) {
+                } else if (itemId == R.id.bottom_profile) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentSignIn()).commit();
-                    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                    getSupportActionBar().setTitle("Profile");
                     return true;
                 } else if (itemId == R.id.bottom_more) {
-                    // Handle the search item
+                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentMore()).commit();
                     return true;
                 }
-                else
-                {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentHome()).commit();
-                    return true;
-                }
+
+                return true;
             }
         });
     }
