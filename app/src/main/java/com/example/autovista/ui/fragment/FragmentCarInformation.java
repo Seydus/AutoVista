@@ -1,11 +1,13 @@
 package com.example.autovista.ui.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 import com.example.autovista.R;
 import com.example.autovista.ui.adapter_and_viewholder.GenericAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.w3c.dom.Text;
 
@@ -44,8 +47,22 @@ public class FragmentCarInformation extends Fragment {
         ImageButton actionBarBackBtn = requireActivity().findViewById(R.id.backBtn);
         actionBarBackBtn.setVisibility(View.VISIBLE);
 
+        ImageButton bookMarkBtn = requireActivity().findViewById(R.id.bookmark_btn);
+        bookMarkBtn.setVisibility(View.VISIBLE);
+
         TextView titleTxt = requireActivity().findViewById(R.id.titleTxt);
         titleTxt.setText("Information");
+
+        bookMarkBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Use ContextCompat.getDrawable to retrieve the Drawable from the resource ID
+                Drawable drawable = ContextCompat.getDrawable(requireContext(), R.drawable.baseline_bookmark_added_24);
+                // Set the background drawable
+                bookMarkBtn.setBackground(drawable);
+            }
+        });
+
 
         actionBarBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +72,8 @@ public class FragmentCarInformation extends Fragment {
                         .commit();
 
                 actionBarBackBtn.setVisibility(View.GONE);
+                bookMarkBtn.setVisibility(View.GONE);
+
                 BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNav);
                 bottomNavigationView.getMenu().clear();
                 requireActivity().getMenuInflater().inflate(R.menu.bottom_nav, bottomNavigationView.getMenu());
@@ -62,14 +81,18 @@ public class FragmentCarInformation extends Fragment {
         });
     }
 
+    void NavigationBarViewButton()
+    {
+        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNav);
+        bottomNavigationView.getMenu().clear();
+        requireActivity().getMenuInflater().inflate(R.menu.car_information_nav, bottomNavigationView.getMenu());
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        BottomNavigationView bottomNavigationView = requireActivity().findViewById(R.id.bottomNav);
-        bottomNavigationView.getMenu().clear();
-
-        requireActivity().getMenuInflater().inflate(R.menu.car_information_nav, bottomNavigationView.getMenu());
+        NavigationBarViewButton();
 
         View view = inflater.inflate(R.layout.fragment_car_information, container, false);
 

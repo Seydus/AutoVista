@@ -11,4 +11,5 @@
     <color name="gray">#EFEFEF</color>
     <color name="lightgray">#FBFBFB</color>
     <color name="linkColor">#0077cc</color>
+    <color name="blueGray">#6699CC</color>
 </resources>

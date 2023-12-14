@@ -23,6 +23,9 @@ public class FragmentSignIn extends Fragment {
 
     void ActionBarBackButton()
     {
+        ImageButton actionBarBackBtn = requireActivity().findViewById(R.id.backBtn);
+        actionBarBackBtn.setVisibility(View.GONE);
+
         TextView titleTxt = requireActivity().findViewById(R.id.titleTxt);
         titleTxt.setText("Profile");
     }

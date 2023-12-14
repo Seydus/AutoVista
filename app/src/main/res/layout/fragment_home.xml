@@ -18,16 +18,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/cover_photo" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_above="@id/containerhome"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="70dp"
-            android:layout_height="50dp">
+            android:layout_height="wrap_content">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -35,7 +35,7 @@
                 android:gravity="center"
                 android:textSize="30dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -70,6 +70,25 @@
                 android:layout_height="60dp"
                 android:text="Vehicle Category" />
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_below="@+id/containerhome"
+            android:layout_width="wrap_content"
+            android:layout_margin="30dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Purchase"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non consequat mi, sed varius justo. Aliquam eleifend viverra ultricies. Phasellus euismod iaculis massa. Praesent porta hendrerit tortor sit amet hendrerit. Proin id orci sit amet velit viverra vehicula. Vivamus at velit mattis, convallis metus nec, bibendum purus."/>
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

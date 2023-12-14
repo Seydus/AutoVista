@@ -35,8 +35,6 @@ public class FragmentSettingsAndInfo extends Fragment {
                 requireActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frameLayout, new FragmentMore())
                         .commit();
-
-                actionBarBackBtn.setVisibility(View.GONE);
             }
         });
     }

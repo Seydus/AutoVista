@@ -27,5 +27,13 @@
             android:layout_toEndOf="@+id/backBtn"
             android:textColor="@color/white"
             android:layout_marginStart="16dp"/>
+
+        <ImageButton
+            android:id="@+id/bookmark_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/baseline_bookmark_add_24"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"/>
     </RelativeLayout>
 </RelativeLayout>
