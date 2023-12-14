@@ -9,8 +9,7 @@
     android:background="?android:attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:paddingBottom="16dp"
-    android:paddingTop="16dp">
+>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -30,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/audi_car_model"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -41,8 +40,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/layout_container"
                 app:layout_constraintTop_toBottomOf="@id/header_image"
-                android:padding="10dp"
+                android:padding="20dp"
                 android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -55,6 +55,7 @@
                         android:layout_height="wrap_content"
                         android:text="2024 Acura Integra"
                         android:textStyle="bold"
+                        android:textColor="@color/blueGray"
                         android:textSize="18dp"/>
 
                     <View
@@ -69,18 +70,21 @@
                         android:layout_height="wrap_content"
                         android:text="$32,695"
                         android:textStyle="bold"
+                        android:textColor="@color/blueGray"
                         android:textSize="18dp"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="3dp">
 
                     <TextView
                         android:id="@+id/carType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Base"
+                        android:textColor="@color/blueGray"
                         android:textSize="13dp"
                         />
 
@@ -91,7 +95,6 @@
                         android:visibility="invisible" />
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </FrameLayout>
