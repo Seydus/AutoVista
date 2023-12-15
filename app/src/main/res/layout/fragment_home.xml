@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
 
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum non consequat mi, sed varius justo. Aliquam eleifend viverra ultricies. Phasellus euismod iaculis massa. Praesent porta hendrerit tortor sit amet hendrerit. Proin id orci sit amet velit viverra vehicula. Vivamus at velit mattis, convallis metus nec, bibendum purus."/>
+                android:text="The AutoVista app streamlines car purchasing for vehicle enthusiasts by eliminating the time-consuming and laborious process of visiting multiple dealers through digital channels."/>
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

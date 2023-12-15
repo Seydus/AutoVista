@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.autovista.authentication.AuthenticationHandler;
 import com.example.autovista.authentication.FirebaseAuthentication;
+import com.example.autovista.car.CarHandler;
 import com.example.autovista.remotedatabase.FirestoreHelper;
 import com.example.autovista.ui.UIAuthentication;
 
@@ -15,6 +16,11 @@ public class GlobalManager extends AppCompatActivity {
     private FirestoreHelper firestoreHelper;
     private UIAuthentication uiAdapter;
     private AuthenticationHandler authenticationHandler;
+    private CarHandler carHandler;
+    private MainActivity mainActivity;
+
+    private Boolean isSelected = false;
+    private Boolean isSelectedInformation = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,5 +65,41 @@ public class GlobalManager extends AppCompatActivity {
 
     public void setAuthenticationHandler(AuthenticationHandler authenticationHandler) {
         this.authenticationHandler = authenticationHandler;
+    }
+
+    public static void setInstance(GlobalManager instance) {
+        Instance = instance;
+    }
+
+    public CarHandler getCarHandler() {
+        return carHandler;
+    }
+
+    public void setCarHandler(CarHandler carHandler) {
+        this.carHandler = carHandler;
+    }
+
+    public MainActivity getMainActivity() {
+        return mainActivity;
+    }
+
+    public void setMainActivity(MainActivity mainActivity) {
+        this.mainActivity = mainActivity;
+    }
+
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
+    }
+
+    public Boolean getSelectedInformation() {
+        return isSelectedInformation;
+    }
+
+    public void setSelectedInformation(Boolean selectedInformation) {
+        isSelectedInformation = selectedInformation;
     }
 }

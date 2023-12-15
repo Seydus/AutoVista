@@ -9,21 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageButton
-            android:id="@+id/car_item_image_button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/audi_logo"
-            android:background="@android:color/transparent"
-            android:layout_alignParentStart="true"/>
-
-
         <Button
             android:id="@+id/car_item_text_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_toEndOf="@id/car_item_image_button"
             android:gravity="center_vertical"
             android:textSize="17sp"
             android:text="Audi"

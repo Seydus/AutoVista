@@ -1,31 +1,28 @@
 package com.example.autovista;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.autovista.authentication.AuthenticationHandler;
 import com.example.autovista.authentication.FirebaseAuthentication;
-import com.example.autovista.models.car.Car;
+import com.example.autovista.car.CarHandler;
 import com.example.autovista.models.user.User;
+import com.example.autovista.remotedatabase.FirestoreHelper;
 import com.example.autovista.ui.UIAuthentication;
+import com.example.autovista.ui.fragment.FragmentCarInformation;
 import com.example.autovista.ui.fragment.FragmentHome;
+import com.example.autovista.ui.fragment.FragmentListOfCars;
 import com.example.autovista.ui.fragment.FragmentMore;
-import com.example.autovista.ui.fragment.FragmentSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -44,16 +41,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         InitializeSingleton();
         InitializeInitialContent();
         InitializeBottomNavigation();
         InitializeFirebaseAuthentication();
         InitializeUIAdapter();
+
     }
 
     private void InitializeSingleton()
     {
         GlobalManager globalManager = GlobalManager.getInstance();
+        FirestoreHelper firestoreHelper = new FirestoreHelper();
+        globalManager.setFirestoreHelper(firestoreHelper);
+        CarHandler carHandler = new CarHandler();
+        carHandler.RetrieveCarBrandData();
+        globalManager.setCarHandler(carHandler);
+        globalManager.setMainActivity(this);
     }
 
     private void InitializeInitialContent()
@@ -73,12 +78,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if (itemId == R.id.bottom_home) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentHome()).commit();
-                    return true;
-                } else if (itemId == R.id.bottom_profile) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentSignIn()).commit();
+                    GlobalManager.Instance.setSelected(false);
+                    GlobalManager.Instance.setSelectedInformation(false);
                     return true;
                 } else if (itemId == R.id.bottom_more) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new FragmentMore()).commit();
+                    GlobalManager.Instance.setSelected(false);
+                    GlobalManager.Instance.setSelectedInformation(false);
                     return true;
                 }
 
@@ -105,5 +111,27 @@ public class MainActivity extends AppCompatActivity {
                 .requestIdToken(clientId)
                 .requestEmail()
                 .build();
+    }
+
+    public void GoNextModelPage(String model)
+    {
+        if(!GlobalManager.Instance.getSelected())
+        {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, new FragmentListOfCars(model))
+                    .commit();
+            GlobalManager.Instance.setSelected(true);
+        }
+    }
+
+    public void GoNextModelInformationPage(String model)
+    {
+        if(!GlobalManager.Instance.getSelectedInformation())
+        {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameLayout, new FragmentCarInformation(model))
+                    .commit();
+            GlobalManager.Instance.setSelectedInformation(true);
+        }
     }
 }
