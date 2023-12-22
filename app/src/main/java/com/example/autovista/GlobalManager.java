@@ -4,18 +4,14 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.autovista.authentication.AuthenticationHandler;
 import com.example.autovista.authentication.FirebaseAuthentication;
 import com.example.autovista.car.CarHandler;
 import com.example.autovista.remotedatabase.FirestoreHelper;
-import com.example.autovista.ui.UIAuthentication;
 
 public class GlobalManager extends AppCompatActivity {
     public static GlobalManager Instance;
     private FirebaseAuthentication firebaseAuthentication;
     private FirestoreHelper firestoreHelper;
-    private UIAuthentication uiAdapter;
-    private AuthenticationHandler authenticationHandler;
     private CarHandler carHandler;
     private MainActivity mainActivity;
 
@@ -49,22 +45,6 @@ public class GlobalManager extends AppCompatActivity {
 
     public void setFirestoreHelper(FirestoreHelper firestoreHelper) {
         this.firestoreHelper = firestoreHelper;
-    }
-
-    public UIAuthentication getUiAdapter() {
-        return uiAdapter;
-    }
-
-    public void setUiAdapter(UIAuthentication uiAdapter) {
-        this.uiAdapter = uiAdapter;
-    }
-
-    public AuthenticationHandler getAuthenticationHandler() {
-        return authenticationHandler;
-    }
-
-    public void setAuthenticationHandler(AuthenticationHandler authenticationHandler) {
-        this.authenticationHandler = authenticationHandler;
     }
 
     public static void setInstance(GlobalManager instance) {

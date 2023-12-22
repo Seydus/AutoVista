@@ -3,24 +3,16 @@ package com.example.autovista.remotedatabase;
 import static android.content.ContentValues.TAG;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.example.autovista.GlobalManager;
-import com.example.autovista.R;
-import com.example.autovista.ui.fragment.FragmentListOfCars;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -36,33 +28,34 @@ public class FirestoreHelper  {
     }
 
 
-    public void OnReadFirestore(String documentId, FirestoreDataCallback onCallBack) {
-        CollectionReference colRef = db.collection("cars").document(documentId).collection("models");
-        DocumentReference docRef = colRef.document(documentId);
+    public void OnReadCarInfoFirestore(String brandId, String modelId, FirestoreDataCallback onCallBack) {
+        CollectionReference colRef = db.collection("cars").document(brandId).collection("models");
+        DocumentReference docRef = colRef.document(modelId);
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    Log.e("HEARAAR", documentSnapshot.getId());
 
-                    if (documentSnapshot.contains("VIN")) {
-                        String vinValue = documentSnapshot.getString("VIN");
-                        Log.e("HEARAAR", "VIN: " + vinValue);
+                    if (documentSnapshot.exists()) {
+                        onCallBack.onCallback(documentSnapshot);
+                        // Log.d("CARINFO", documentSnapshot.getId());
+                        onCallBack.onState(true);
                     } else {
-                        Log.e("HEARAAR", "VIN field does not exist in the document.");
+                        Log.e("HEARAAR", "Document does not exist.");
+                        onCallBack.onState(false);
                     }
-
-                    onCallBack.onCallback(documentSnapshot);
                 } else {
-                    Log.d(TAG, "Error getting document: ", task.getException());
+                    Log.e(TAG, "Error getting document: ", task.getException());
+                    onCallBack.onState(false);
                 }
             }
         });
     }
 
-    public void OnReadAllCarBrandFirestore(FirestoreDataCallback onCallBack) {
+
+    public List<DocumentSnapshot> OnReadAllCarBrandFirestore(FirestoreDataCallback onCallBack) {
         CollectionReference colRef = db.collection("cars");
 
         colRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -77,17 +70,21 @@ public class FirestoreHelper  {
                         for (DocumentSnapshot document : documents) {
                             Log.e("TASDASDASDAD", "Document ID: " + document.getId());
                         }
+                        onCallBack.onState(true);
                     } else {
                         Log.e("TASDASDASDAD", "QuerySnapshot is null");
+                        onCallBack.onState(false);
                     }
                 } else {
                     Log.e("TASDASDASDAD", "Error getting documents: ", task.getException());
+                    onCallBack.onState(false);
                 }
             }
         });
+        return null;
     }
 
-    public void OnReadAllCarModelFirestore(String documentId, FirestoreDataCallback onCallBack) {
+    public DocumentSnapshot OnReadAllCarModelFirestore(String documentId, FirestoreDataCallback onCallBack) {
         CollectionReference colRef = db.collection("cars").document(documentId).collection("models");
 
         colRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -98,13 +95,18 @@ public class FirestoreHelper  {
                     if (querySnapshot != null) {
                         List<DocumentSnapshot> documents = querySnapshot.getDocuments();
                         onCallBack.onCallback(documents);
+                        onCallBack.onState(true);
+
                     } else {
                         Log.e("TASDASDASDAD", "QuerySnapshot is null");
+                        onCallBack.onState(false);
                     }
                 } else {
                     Log.e("TASDASDASDAD", "Error getting documents: ", task.getException());
+                    onCallBack.onState(false);
                 }
             }
         });
+        return null;
     }
 }

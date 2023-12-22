@@ -1,5 +1,6 @@
 package com.example.autovista.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,10 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autovista.GlobalManager;
 import com.example.autovista.R;
-import com.example.autovista.models.car.Car;
-import com.example.autovista.models.car.CarInfo;
+import com.example.autovista.models.car.CarItemsProfile;
+import com.example.autovista.remotedatabase.FirestoreDataCallback;
 import com.example.autovista.ui.adapter_and_viewholder.GenericAdapter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -28,6 +28,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 public class FragmentVehicleModel extends Fragment {
+
+    List<DocumentSnapshot> brand;
+
+    private void showToast(String message) {
+        requireContext();
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    public FragmentVehicleModel(List<DocumentSnapshot> brand)
+    {
+        this.brand = brand;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +51,7 @@ public class FragmentVehicleModel extends Fragment {
     void ActionBarBackButton()
     {
         ImageButton actionBarBackBtn = requireActivity().findViewById(R.id.backBtn);
-        actionBarBackBtn.setVisibility(View.VISIBLE);
+        actionBarBackBtn.setVisibility(View.GONE);
 
         TextView titleTxt = requireActivity().findViewById(R.id.titleTxt);
         titleTxt.setText("Models");
@@ -47,11 +59,11 @@ public class FragmentVehicleModel extends Fragment {
         actionBarBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frameLayout, new FragmentHome())
-                        .commit();
-
                 actionBarBackBtn.setVisibility(View.GONE);
+                int entryCount = requireActivity().getSupportFragmentManager().getBackStackEntryCount();
+                Log.d("BackStack", "Back stack entry count: " + entryCount);
+
+                requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
     }
@@ -66,18 +78,54 @@ public class FragmentVehicleModel extends Fragment {
 
         List<Map<String, Object>> dataList = new ArrayList<>();
 
-        List<DocumentSnapshot> items = GlobalManager.Instance.getCarHandler().brandItems;
-
-        for (DocumentSnapshot document : items) {
-            String buttonText = document.getId();
+        for (DocumentSnapshot item : brand) {
+            String buttonText = item.getId();
             View.OnClickListener onClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Button text = v.findViewById(R.id.car_item_text_button);
+                    Button brand = v.findViewById(R.id.car_item_text_button);
+                    ProgressDialog dialog = new ProgressDialog(requireContext());
+                    dialog.setCancelable(false);
+                    dialog.setTitle("Fetching data...");
+                    dialog.show();
 
-                    // Add a condition here to check if database is successfully retrieve
-                    // before proceeeding here
-                    GlobalManager.Instance.getCarHandler().RetrieveCarBrandModelData(text.getText().toString());
+                    GlobalManager.Instance.getFirestoreHelper().OnReadAllCarModelFirestore(brand.getText().toString(), new FirestoreDataCallback() {
+                        List<DocumentSnapshot> modelItems;
+                        CarItemsProfile profile;
+
+                        @Override
+                        public void onCallback(Object data) {
+                            try {
+                                profile = new CarItemsProfile();
+                                modelItems = (List<DocumentSnapshot>) data;
+                                profile.setBrand(brand.getText().toString());
+                                profile.setModelItem(modelItems);
+                            } catch (Exception e) {
+                                // Handle exceptions, log, or show an error message
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onState(boolean state) {
+                            dialog.dismiss();
+
+                            if (state && isAdded()) {
+                                int entryCountBeforeTransaction = requireActivity().getSupportFragmentManager().getBackStackEntryCount();
+                                Log.d("BackStack", "Back stack entry count before transaction: " + entryCountBeforeTransaction);
+
+                                requireActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.frameLayout, new FragmentListOfCars(profile))
+                                        .addToBackStack("modelList")
+                                        .commit();
+
+                                int entryCountAfterTransaction = requireActivity().getSupportFragmentManager().getBackStackEntryCount();
+                                Log.d("BackStack", "Back stack entry count after transaction: " + entryCountAfterTransaction);
+                            } else {
+                                showToast("Failed to fetch data");
+                            }
+                        }
+                    });
                 }
             };
 
@@ -100,5 +148,6 @@ public class FragmentVehicleModel extends Fragment {
 
         return view;
     }
+
 
 }

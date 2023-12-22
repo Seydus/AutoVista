@@ -18,9 +18,10 @@ public class CarHandler extends Fragment {
     QuerySnapshot queryData;
     public List<DocumentSnapshot> modelItems;
     public List<DocumentSnapshot> brandItems;
-    public DocumentSnapshot item;
+    public DocumentSnapshot model;
 
-    public void RetrieveCarBrandData() {
+    /*
+    public List<DocumentSnapshot> RetrieveCarBrandData() {
         GlobalManager.Instance.getFirestoreHelper().OnReadAllCarBrandFirestore(new FirestoreDataCallback() {
             @Override
             public void onCallback(Object data) {
@@ -31,37 +32,9 @@ public class CarHandler extends Fragment {
                 }
             }
         });
+
+        return brandItems;
     }
 
-    public DocumentSnapshot RetriveCarInfo(String documentId)
-    {
-        GlobalManager.Instance.getFirestoreHelper().OnReadFirestore(documentId, new FirestoreDataCallback() {
-            @Override
-            public void onCallback(Object data) {
-                item = (DocumentSnapshot) data;
-
-                GlobalManager.Instance.getMainActivity().GoNextModelInformationPage(item.getId());
-            }
-        });
-
-        return item;
-    }
-
-    public List<DocumentSnapshot> RetrieveCarBrandModelData(String documentId)
-    {
-        GlobalManager.Instance.getFirestoreHelper().OnReadAllCarModelFirestore(documentId, new FirestoreDataCallback() {
-            @Override
-            public void onCallback(Object data) {
-                modelItems = (List<DocumentSnapshot>) data;
-
-                for (DocumentSnapshot document : modelItems) {
-                    Log.e("TASDASDASDAD", "Document ID: " + document.getId());
-                }
-
-                GlobalManager.Instance.getMainActivity().GoNextModelPage(documentId);
-            }
-        });
-
-        return modelItems;
-    }
+     */
 }

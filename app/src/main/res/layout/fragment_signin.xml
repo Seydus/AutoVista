@@ -7,6 +7,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="30dp"
+    android:id="@+id/signinLayout"
     >
 
     <TextView
@@ -70,5 +71,11 @@
         android:text="@string/don_t_have_an_account_sign_up"
         android:textSize="14sp"
         android:padding="10dp" />
+
+    <Button
+        android:id="@+id/login_signup_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign up"/>
 
 </LinearLayout>
