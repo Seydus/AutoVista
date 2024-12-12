@@ -1,0 +1,27 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/car_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="" />
+
+    <TextView
+        android:id="@+id/car_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Car Name"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="@android:color/black"
+        android:padding="4dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp" />
+
+</RelativeLayout>
