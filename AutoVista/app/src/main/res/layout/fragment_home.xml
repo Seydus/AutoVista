@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.FragmentCarInformation">
@@ -9,86 +10,174 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <ImageButton
+                android:id="@+id/button_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="burger"
+                android:layout_gravity="start" />
+
+            <TextView
+                android:id="@+id/text_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true" />
+
+            <ImageButton
+                android:id="@+id/button_notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_dialog_email"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="nortification"
+                android:layout_gravity="end"
+                android:layout_margin="20dp" />
+
+        </androidx.appcompat.widget.Toolbar>
         <LinearLayout
+            android:id="@+id/search_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_below="@id/toolbar"
+            android:orientation="horizontal"
+            android:padding="20dp"
+            android:weightSum="10">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="350dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/cover_photo" />
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_weight="8"
+                android:background="@drawable/rounded_search_background">
 
+                <ImageView
+                    android:id="@+id/search_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@android:drawable/ic_menu_search"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:contentDescription="searchicon" />
+
+                <EditText
+                    android:id="@+id/search_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/search_icon"
+                    android:layout_toRightOf="@id/search_icon"
+                    android:hint="Search"
+                    android:background="@android:color/transparent"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/filter_button"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="2"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="filter"
+                android:padding="10dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_above="@id/containerhome"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="70dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Find a Great Deal"
-                android:gravity="center"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/containerhome"
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_centerInParent="true"
-            android:background="@color/white"
-            android:elevation="8dp"
-            android:gravity="center"
+            android:id="@+id/highlight_container"
+            android:layout_below="@id/search_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
 
             <TextView
+                android:id="@+id/carousel_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Shop By"
-                android:textColor="#000000"
+                android:text="Highlights"
                 android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btn_make_model"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="Make &amp; Model" />
-
-            <Button
-                android:id="@+id/btn_vehicle_category"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="Vehicle Category" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_below="@+id/containerhome"
-            android:layout_width="wrap_content"
-            android:layout_margin="30dp"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
                 android:textStyle="bold"
-                android:text="Purchase"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp" />
 
-                android:text="The AutoVista app streamlines car purchasing for vehicle enthusiasts by eliminating the time-consuming and laborious process of visiting multiple dealers through digital channels."/>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/carousel_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:clipToPadding="false"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp" />
+
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@id/highlight_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/catalog_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Recommended"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:id="@+id/see_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See all"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/catalog_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:clipToPadding="false"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:pageMargin="20dp" />
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar">
+        </FrameLayout>
+
     </RelativeLayout>
 </FrameLayout>

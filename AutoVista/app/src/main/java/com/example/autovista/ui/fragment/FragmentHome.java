@@ -57,8 +57,8 @@ public class FragmentHome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
 
-        btnMakeModel = view.findViewById(R.id.btn_make_model);
-        btnVehicleCategory = view.findViewById(R.id.btn_vehicle_category);
+        //btnMakeModel = view.findViewById(R.id.btn_make_model);
+        //btnVehicleCategory = view.findViewById(R.id.btn_vehicle_category);
 
         btnMakeModel.setOnClickListener(new View.OnClickListener() {
             @Override
