@@ -6,6 +6,11 @@
         android:icon="@drawable/baseline_home_24"/>
 
     <item
+        android:id="@+id/bottom_category"
+        android:title="Category"
+        android:icon="@drawable/baseline_home_24"/>
+
+    <item
         android:id="@+id/bottom_more"
         android:title="More"
         android:icon="@drawable/baseline_category_24"/>

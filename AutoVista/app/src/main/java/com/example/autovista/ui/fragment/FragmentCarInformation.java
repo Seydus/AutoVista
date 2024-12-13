@@ -1,19 +1,14 @@
 package com.example.autovista.ui.fragment;
 
-import android.content.ClipData;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -22,12 +17,9 @@ import android.widget.TextView;
 
 import com.example.autovista.GlobalManager;
 import com.example.autovista.R;
-import com.example.autovista.models.car.CarItemsProfile;
-import com.example.autovista.remotedatabase.FirestoreDataCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
