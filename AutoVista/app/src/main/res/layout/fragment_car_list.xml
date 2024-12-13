@@ -10,4 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.example.autovista.ui.fragment.FilterComponent
+        android:id="@+id/filterComponent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp" />
 </LinearLayout>

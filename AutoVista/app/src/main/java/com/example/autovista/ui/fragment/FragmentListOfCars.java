@@ -47,8 +47,7 @@ public class FragmentListOfCars extends Fragment {
     Button btnMakeModel, btnVehicleCategory;
     CarItemsProfile profile;
 
-    public FragmentListOfCars(CarItemsProfile profile)
-    {
+    public FragmentListOfCars(CarItemsProfile profile) {
         this.profile = profile;
     }
 
@@ -60,37 +59,51 @@ public class FragmentListOfCars extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ActionBarBackButton();
     }
 
-    void ActionBarBackButton()
-    {
+    void ActionBarBackButton() {
         ImageButton actionBarBackBtn = requireActivity().findViewById(R.id.backBtn);
         actionBarBackBtn.setVisibility(View.GONE);
 
         TextView titleTxt = requireActivity().findViewById(R.id.titleTxt);
         titleTxt.setText("Listings");
 
-        actionBarBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int entryCount = requireActivity().getSupportFragmentManager().getBackStackEntryCount();
-                Log.d("BackStack", "Back stack entry count: " + entryCount);
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
+        actionBarBackBtn.setOnClickListener(v -> {
+            int entryCount = requireActivity().getSupportFragmentManager().getBackStackEntryCount();
+            Log.d("BackStack", "Back stack entry count: " + entryCount);
+            requireActivity().getSupportFragmentManager().popBackStack();
         });
     }
 
-        @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_category, container, false);
+        FilterComponent filterComponent = view.findViewById(R.id.filterComponent);
+        List<String> models = new ArrayList<>();
+        List<String> brands = new ArrayList<>();
+        for (DocumentSnapshot modelItem : profile.getModelItem()) {
+            models.add(modelItem.getId());
+            brands.add(profile.getBrand());  // Assuming the brand is constant
+        }
+
+        filterComponent.setModelOptions(models);
+        filterComponent.setBrandOptions(brands);
+
+        // Set up search button click listener
+        filterComponent.getSearchButton().setOnClickListener(v -> {
+            String selectedModel = filterComponent.getSelectedModel();
+            String selectedBrand = filterComponent.getSelectedBrand();
+            String maxPrice = filterComponent.getMaxPrice();
+
+            // Use the filter values to perform the search or filter your data
+            filterCars(selectedModel, selectedBrand, maxPrice);
+        });
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_list);
 
         List<Map<String, Object>> dataList = new ArrayList<>();
-
         for (DocumentSnapshot modelItem : profile.getModelItem()) {
             String brandPath = capitalizeFirstLetter(profile.getBrand());
             String completePath = brandPath + "/" + brandPath + "-" + modelItem.getId() + ".png";
@@ -103,48 +116,40 @@ public class FragmentListOfCars extends Fragment {
             data.put(String.valueOf(R.id.header_image), completePath);
             data.put(String.valueOf(R.id.carName), modelItem.getId());
             data.put(String.valueOf(R.id.carPrice), formattedCurrency);
+            View.OnClickListener onClickListener = v -> {
+                ProgressDialog dialog = new ProgressDialog(requireContext());
+                dialog.setCancelable(false);
+                dialog.setTitle("Fetching data...");
+                dialog.show();
 
+                GlobalManager.Instance.getFirestoreHelper().OnReadCarInfoFirestore(profile.getBrand(), modelItem.getId(), new FirestoreDataCallback() {
+                    DocumentSnapshot carInfo;
 
-            View.OnClickListener onClickListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ProgressDialog dialog = new ProgressDialog(requireContext());
-                    dialog.setCancelable(false);
-                    dialog.setTitle("Fetching data...");
-                    dialog.show();
+                    @Override
+                    public void onCallback(Object data) {
+                        carInfo = (DocumentSnapshot) data;
+                    }
 
-                    GlobalManager.Instance.getFirestoreHelper().OnReadCarInfoFirestore(profile.getBrand(), modelItem.getId(), new FirestoreDataCallback() {
-                        DocumentSnapshot carInfo;
+                    @Override
+                    public void onState(boolean state) {
+                        dialog.dismiss();
 
-                        @Override
-                        public void onCallback(Object data) {
-                            carInfo = (DocumentSnapshot) data;
+                        if (state && isAdded()) {
+                            requireActivity().getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.frameLayout, new FragmentCarInformation(profile.getBrand(), carInfo))
+                                    .addToBackStack("carInfo")
+                                    .commit();
+                        } else {
+                            showToast("Failed to fetch data.");
                         }
-
-                        @Override
-                        public void onState(boolean state) {
-                            dialog.dismiss();
-
-                            if (state && isAdded()) {
-                                requireActivity().getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.frameLayout, new FragmentCarInformation(profile.getBrand(), carInfo))
-                                        .addToBackStack("carInfo")
-                                        .commit();
-                            } else {
-                                showToast("Failed to fetch data.");
-                            }
-                        }
-                    });
-                }
+                    }
+                });
             };
 
             data.put("clickListener", onClickListener);
             dataList.add(data);
         }
-
-
         int layoutResourceId = R.layout.car_information_item;
-
         GenericAdapter adapter = new GenericAdapter(dataList, layoutResourceId,
                 R.id.car_information_item_framelayout,
                 R.id.carName,
@@ -154,17 +159,57 @@ public class FragmentListOfCars extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(layoutManager);
-
         recyclerView.setAdapter(adapter);
 
         return view;
     }
 
+    private void filterCars(String model, String brand, String maxPrice) {
+        List<Map<String, Object>> filteredDataList = new ArrayList<>();
+
+        for (DocumentSnapshot modelItem : profile.getModelItem()) {
+            String itemModel = modelItem.getId();
+            String itemBrand = profile.getBrand();
+            String itemPrice = modelItem.getString("Price");
+
+            boolean matchesModel = model.equals("") || itemModel.equals(model);
+            boolean matchesBrand = brand.equals("") || itemBrand.equals(brand);
+            boolean matchesPrice = maxPrice.equals("") || Integer.parseInt(itemPrice) <= Integer.parseInt(maxPrice);
+
+            if (matchesModel && matchesBrand && matchesPrice) {
+                String brandPath = capitalizeFirstLetter(profile.getBrand());
+                String completePath = brandPath + "/" + brandPath + "-" + itemModel + ".png";
+
+                Locale philippinesLocale = new Locale("fil", "PH");
+                NumberFormat philippinePesoFormat = NumberFormat.getCurrencyInstance(philippinesLocale);
+                String formattedCurrency = philippinePesoFormat.format(itemPrice);
+
+                Map<String, Object> data = new HashMap<>();
+                data.put(String.valueOf(R.id.header_image), completePath);
+                data.put(String.valueOf(R.id.carName), itemModel);
+                data.put(String.valueOf(R.id.carPrice), formattedCurrency);
+
+                filteredDataList.add(data);
+            }
+        }
+
+        GenericAdapter filteredAdapter = new GenericAdapter(filteredDataList, R.layout.car_information_item,
+                R.id.car_information_item_framelayout,
+                R.id.carName,
+                R.id.carPrice,
+                R.id.carType,
+                R.id.header_image);
+
+        RecyclerView recyclerView = requireView().findViewById(R.id.recycler_view_list);
+        recyclerView.setAdapter(filteredAdapter);
+    }
+
     public static String capitalizeFirstLetter(String input) {
         if (input == null || input.isEmpty()) {
-            return input; // Return input as is for null or empty strings
+            return input;
         } else {
             return input.substring(0, 1).toUpperCase() + input.substring(1);
         }
     }
 }
+
