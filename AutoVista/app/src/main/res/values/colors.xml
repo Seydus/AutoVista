@@ -12,4 +12,5 @@
     <color name="lightgray">#FBFBFB</color>
     <color name="linkColor">#0077cc</color>
     <color name="blueGray">#6699CC</color>
+    <color name="black_overlay">#33000000</color>
 </resources>

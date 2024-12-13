@@ -169,7 +169,7 @@
                 android:clipToPadding="false"
                 android:paddingStart="40dp"
                 android:paddingEnd="40dp"
-                android:pageMargin="20dp" />
+                android:layout_margin="20dp" />
         </LinearLayout>
 
 

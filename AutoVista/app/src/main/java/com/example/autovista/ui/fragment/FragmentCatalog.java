@@ -12,14 +12,18 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.autovista.R;
 import com.example.autovista.models.CatalogItem;
 import com.example.autovista.ui.adapter_and_viewholder.CatalogAdapter;
+import com.example.autovista.ui.adapter_and_viewholder.RecommendedAdapter;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentCatalog extends Fragment {
 
-    private ViewPager viewPager;
-    private CatalogAdapter catalogAdapter;
+    private ViewPager viewPager; // Existing ViewPager
+    private CatalogAdapter catalogAdapter; // Existing Adapter
 
     @Nullable
     @Override
@@ -28,15 +32,22 @@ public class FragmentCatalog extends Fragment {
 
         viewPager = view.findViewById(R.id.view_pager_catalog);
 
-        // Sample data (Fetch Data here)
+
         List<CatalogItem> catalogItems = new ArrayList<>();
         catalogItems.add(new CatalogItem(R.drawable.audi_car_model, "Model S", "Tesla"));
         catalogItems.add(new CatalogItem(R.drawable.audi_car_model, "Civic", "Honda"));
         catalogItems.add(new CatalogItem(R.drawable.audi_car_model, "Mustang", "Ford"));
+        catalogItems.add(new CatalogItem(R.drawable.audi_car_model, "Camry", "Toyota"));
+        catalogItems.add(new CatalogItem(R.drawable.audi_car_model, "Accord", "Honda"));
+        catalogItems.add(new CatalogItem(R.drawable.audi_car_model, "Wrangler", "Jeep"));
 
-        // Set up the adapter
         catalogAdapter = new CatalogAdapter(requireContext(), catalogItems);
         viewPager.setAdapter(catalogAdapter);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_recommended);
+        RecommendedAdapter recommendedAdapter = new RecommendedAdapter(requireContext(), catalogItems);
+        recyclerView.setAdapter(recommendedAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
 
         return view;
     }
