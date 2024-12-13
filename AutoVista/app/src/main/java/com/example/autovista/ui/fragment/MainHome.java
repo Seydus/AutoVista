@@ -73,6 +73,15 @@ public class MainHome extends Fragment {
                     GlobalManager.Instance.setSelectedInformation(false);
                     return true;
                 }
+                else if (itemId == R.id.bottom_category) {
+                    requireActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.frameLayout, new FragmentVehicleCategory())
+                            .addToBackStack(null) // Optional: Add to back stack if you want the user to navigate back
+                            .commit();
+                    GlobalManager.Instance.setSelected(false);
+                    GlobalManager.Instance.setSelectedInformation(false);
+                    return true;
+                }
                 else if (itemId == R.id.bottom_interested) {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse("tel:09154289822"));

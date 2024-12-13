@@ -10,49 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <ImageButton
-                android:id="@+id/button_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_sort_by_size"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="burger"
-                android:layout_gravity="start" />
-
-            <TextView
-                android:id="@+id/text_app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:layout_gravity="center"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_centerInParent="true" />
-
-            <ImageButton
-                android:id="@+id/button_notifications"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_dialog_email"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="nortification"
-                android:layout_gravity="end"
-                android:layout_margin="20dp" />
-
-        </androidx.appcompat.widget.Toolbar>
         <LinearLayout
             android:id="@+id/search_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
             android:orientation="horizontal"
             android:padding="20dp"
             android:weightSum="10">
@@ -99,37 +60,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/highlight_container"
             android:layout_below="@id/search_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp">
-
-            <TextView
-                android:id="@+id/carousel_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Highlights"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/carousel_view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:clipToPadding="false"
-                android:paddingStart="40dp"
-                android:paddingEnd="40dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_below="@id/highlight_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -162,22 +93,13 @@
                     android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/catalog_view_pager"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recommended_catalog_view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="260dp"
                 android:clipToPadding="false"
-                android:paddingStart="40dp"
-                android:paddingEnd="40dp"
-                android:pageMargin="20dp" />
+                android:scrollbars="horizontal" />
+
         </LinearLayout>
-
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
-        </FrameLayout>
-
     </RelativeLayout>
 </FrameLayout>
