@@ -54,7 +54,19 @@ public class FragmentModels extends Fragment {
         // Setup RecyclerView for models
         modelsRecyclerView = view.findViewById(R.id.models_recycler_view);
         modelsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        modelAdapter = new ModelAdapter(modelList);
+
+        // Initialize adapter with click listener
+        modelAdapter = new ModelAdapter(modelList, carModel -> {
+            if (getActivity() != null) {
+                FragmentModelDetails fragment = FragmentModelDetails.newInstance(carModel);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, fragment) // Replace with your container ID
+                        .addToBackStack(null) // Allow navigation back
+                        .commit();
+            }
+        });
+
         modelsRecyclerView.setAdapter(modelAdapter);
 
         // Fetch models for the selected brand
@@ -67,34 +79,60 @@ public class FragmentModels extends Fragment {
         firestoreHelper.fetchCarModels(brand, new FirestoreHelper.FirestoreCallback() {
             @Override
             public void onSuccess(Object data) {
-                modelList.clear();
-                List<Map<String, Object>> models = (List<Map<String, Object>>) data;
-                for (Map<String, Object> modelDetails : models) {
-                    String modelName = (String) modelDetails.get("modelName");
-                    String exteriorColor = (String) modelDetails.get("ExteriorColor");
-                    String fuelType = (String) modelDetails.get("FuelType");
-                    String interiorColor = (String) modelDetails.get("InteriorColor");
-                    int mileage = ((Number) modelDetails.get("Mileage")).intValue();
-                    int price = ((Number) modelDetails.get("Price")).intValue();
-                    String transmission = (String) modelDetails.get("Transmission");
-                    String vin = (String) modelDetails.get("VIN");
-                    int weight = ((Number) modelDetails.get("Weight")).intValue();
+                if (data instanceof List) {
+                    List<Map<String, Object>> models = (List<Map<String, Object>>) data;
+                    if (models.isEmpty()) {
+                        Log.e("FragmentModels", "No models found for brand: " + brand);
+                    } else {
+                        Log.d("FragmentModels", "Models fetched: " + models);
+                        modelList.clear();
 
-                    CarModel carModel = new CarModel(
-                            modelName,
-                            brand,
-                            exteriorColor,
-                            fuelType,
-                            interiorColor,
-                            mileage,
-                            price,
-                            transmission,
-                            vin,
-                            weight
-                    );
-                    modelList.add(carModel);
+                        for (int i = 0; i < models.size(); i++) {
+                            Map<String, Object> modelDetails = models.get(i);
+                            String modelName = null;
+
+                            try {
+                                // Retrieve modelName from the document ID or the modelDetails map
+                                if (modelDetails.containsKey("documentId")) {
+                                    modelName = (String) modelDetails.get("documentId");
+                                } else {
+                                    modelName = "Unknown Model";
+                                }
+
+                                // Parse other details
+                                String interiorColor = (String) modelDetails.getOrDefault("InteriorColor", "Unknown");
+                                String exteriorColor = (String) modelDetails.getOrDefault("ExteriorColor", "Unknown");
+                                String fuelType = (String) modelDetails.getOrDefault("FuelType", "Unknown");
+                                String transmission = (String) modelDetails.getOrDefault("Transmission", "Unknown");
+                                String vin = (String) modelDetails.getOrDefault("VIN", "Unknown");
+                                int mileage = ((Number) modelDetails.getOrDefault("Mileage", 0)).intValue();
+                                int weight = ((Number) modelDetails.getOrDefault("Weight", 0)).intValue();
+                                int price = ((Number) modelDetails.getOrDefault("Price", 0)).intValue();
+
+                                // Create CarModel object
+                                CarModel carModel = new CarModel(
+                                        modelName,
+                                        brand,
+                                        exteriorColor,
+                                        fuelType,
+                                        interiorColor,
+                                        mileage,
+                                        price,
+                                        transmission,
+                                        vin,
+                                        weight
+                                );
+
+                                modelList.add(carModel);
+                            } catch (Exception e) {
+                                Log.e("FragmentModels", "Error parsing model data: " + modelDetails, e);
+                            }
+                        }
+                        modelAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                    Log.e("FragmentModels", "Unexpected data format: " + data);
                 }
-                modelAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -103,5 +141,6 @@ public class FragmentModels extends Fragment {
             }
         });
     }
+
 }
 

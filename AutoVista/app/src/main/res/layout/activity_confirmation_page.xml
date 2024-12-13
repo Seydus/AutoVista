@@ -223,7 +223,6 @@
       </LinearLayout>
 
       <LinearLayout
-          android:id="@+id/confirm_fakebtn"
           android:layout_width="match_parent"
           android:layout_height="40dp"
           android:layout_gravity="center"
@@ -235,6 +234,7 @@
           android:paddingEnd="10dp">
 
         <TextView
+            android:id="@+id/confirm_fakebtn"
             android:layout_width="238dp"
             android:layout_height="match_parent"
             android:gravity="center"

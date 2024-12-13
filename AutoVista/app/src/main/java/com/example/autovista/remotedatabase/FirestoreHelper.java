@@ -130,8 +130,12 @@ public class FirestoreHelper {
                     if (task.isSuccessful()) {
                         List<Map<String, Object>> carModels = new ArrayList<>();
                         for (DocumentSnapshot document : task.getResult()) {
-                            Log.d("FirestoreHelper", "Model: " + document.getId() + ", Data: " + document.getData());
-                            carModels.add(document.getData());
+                            Map<String, Object> modelDetails = document.getData();
+                            if (modelDetails != null) {
+                                modelDetails.put("documentId", document.getId()); // Add document ID as model name fallback
+                            }
+                            Log.d("FirestoreHelper", "Model: " + document.getId() + ", Data: " + modelDetails);
+                            carModels.add(modelDetails);
                         }
                         callback.onSuccess(carModels);
                     } else {

@@ -45,7 +45,7 @@ public class FragmentVehicleCategory extends Fragment {
                 FragmentModels fragmentModels = FragmentModels.newInstance(brand);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.mainFrameLayout, fragmentModels)
+                        .replace(R.id.frameLayout, fragmentModels)
                         .addToBackStack(null) // Optional: Allow navigating back
                         .commit();
             } else {

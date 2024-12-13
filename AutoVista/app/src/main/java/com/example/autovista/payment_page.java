@@ -30,7 +30,7 @@ public class payment_page extends AppCompatActivity {
         setContentView(R.layout.activity_payment_page);
 
         // Bind UI Components
-        bindUIComponents();
+        // bindUIComponents();
 
         // Set Proceed Button Click Listener
         proceedButton.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +47,7 @@ public class payment_page extends AppCompatActivity {
     /**
      * Binds all the UI components to their corresponding views in the XML layout.
      */
+    /*
     private void bindUIComponents() {
         ccNameEt = findViewById(R.id.cc_name_et);
         ccNumberEt = findViewById(R.id.cc_number_et);
@@ -54,6 +55,7 @@ public class payment_page extends AppCompatActivity {
         ccCvvEt = findViewById(R.id.cc_cvv_et);
         proceedButton = findViewById(R.id.proceed_fakebtn);
     }
+    */
 
     /**
      * Handles the Proceed button click event.
