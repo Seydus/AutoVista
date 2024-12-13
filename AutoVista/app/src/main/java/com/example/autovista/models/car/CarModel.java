@@ -1,6 +1,9 @@
 package com.example.autovista.models.car;
 
-public class CarModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CarModel implements Parcelable {
     private String modelName;
     private String brand;
     private String exteriorColor;
@@ -29,27 +32,88 @@ public class CarModel {
         this.weight = weight;
     }
 
+    protected CarModel(Parcel in) {
+        modelName = in.readString();
+        brand = in.readString();
+        exteriorColor = in.readString();
+        fuelType = in.readString();
+        interiorColor = in.readString();
+        mileage = in.readInt();
+        price = in.readInt();
+        transmission = in.readString();
+        vin = in.readString();
+        weight = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(modelName);
+        dest.writeString(brand);
+        dest.writeString(exteriorColor);
+        dest.writeString(fuelType);
+        dest.writeString(interiorColor);
+        dest.writeInt(mileage);
+        dest.writeInt(price);
+        dest.writeString(transmission);
+        dest.writeString(vin);
+        dest.writeInt(weight);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<CarModel> CREATOR = new Creator<CarModel>() {
+        @Override
+        public CarModel createFromParcel(Parcel in) {
+            return new CarModel(in);
+        }
+
+        @Override
+        public CarModel[] newArray(int size) {
+            return new CarModel[size];
+        }
+    };
+
+    /**
+     * Constructs the storage path for the car's image.
+     *
+     * @return The constructed storage path.
+     */
     public String getStoragePath() {
         return capitalizeFirstLetter(brand) + "/" + capitalizeFirstLetter(brand) + "-" + modelName + ".png";
     }
 
+    /**
+     * Capitalizes the first letter of the given string.
+     *
+     * @param str The string to capitalize.
+     * @return The capitalized string.
+     */
     private String capitalizeFirstLetter(String str) {
         if (str == null || str.isEmpty()) {
             return str;
         }
         return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
     }
+
+    // Getters and Setters
+
     public String getModelName() {
         return modelName;
     }
 
-    public String getBrand()
-    {
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public String getBrand() {
         return brand;
     }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getExteriorColor() {

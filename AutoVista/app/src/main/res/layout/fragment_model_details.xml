@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/model_details_image"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/model_details_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Model Name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/model_details_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Brand Name"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/model_details_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/model_details_specs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Specifications"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/model_details_buy_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Buy Now"
+            android:backgroundTint="@color/blueGray"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</ScrollView>

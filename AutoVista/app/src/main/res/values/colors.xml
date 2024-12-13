@@ -11,5 +11,6 @@
     <color name="gray">#EFEFEF</color>
     <color name="lightgray">#FBFBFB</color>
     <color name="linkColor">#0077cc</color>
+    <color name="black_overlay">#80000000</color> <!-- 50% transparent black -->
     <color name="blueGray">#6699CC</color>
 </resources>

@@ -1,5 +1,8 @@
 package com.example.autovista.ui.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.autovista.R;
 import com.example.autovista.models.car.CarModel;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
 public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> {
 
     private List<CarModel> models;
+    private OnModelClickListener onModelClickListener;
 
-    public ModelAdapter(List<CarModel> models) {
+    // Constructor with click listener
+    public ModelAdapter(List<CarModel> models, OnModelClickListener onModelClickListener) {
         this.models = models;
+        this.onModelClickListener = onModelClickListener;
+    }
+
+    public interface OnModelClickListener {
+        void onModelClick(CarModel carModel);
     }
 
     @NonNull
@@ -32,14 +44,14 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CarModel carModel = models.get(position);
+
+        // Bind data to views
         holder.modelName.setText(carModel.getModelName());
         holder.brandName.setText(carModel.getBrand());
-        holder.price.setText("Price: " + carModel.getPrice());
+        holder.price.setText("Price: $" + carModel.getPrice());
 
-        // Load image from Firebase Storage
-        //FirebaseStorage.getInstance().getReference().child(carModel.getStoragePath()).getDownloadUrl()
-          //      .addOnSuccessListener(uri -> Glide.with(holder.itemView.getContext()).load(uri).into(holder.image))
-            //    .addOnFailureListener(e -> holder.image.setImageResource(R.drawable.placeholder_image));
+        // Handle item click
+        holder.itemView.setOnClickListener(v -> onModelClickListener.onModelClick(carModel));
     }
 
     @Override
@@ -48,16 +60,14 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView carImage;
         TextView modelName, brandName, price;
-        ImageView image;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             modelName = itemView.findViewById(R.id.model_name);
             brandName = itemView.findViewById(R.id.brand_name);
-            price = itemView.findViewById(R.id.price);
-            image = itemView.findViewById(R.id.model_image);
+            price = itemView.findViewById(R.id.model_price);
         }
     }
 }
-
